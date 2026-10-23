@@ -1,0 +1,28 @@
+#!/bin/sh
+# 首次启动执行的默认设置
+[ -f /etc/openwrt_release ] || exit 0
+
+# 主题
+uci -q set luci.main.mediaurlbase='/luci-static/argon'
+uci -q commit luci
+
+# 旁路由模式：网关与 DNS 指向主路由，关掉本机 DHCP
+uci -q set network.lan.gateway='192.168.50.1'
+uci -q set network.lan.dns='192.168.50.1'
+uci -q set network.lan.ipaddr='192.168.50.8'
+uci -q commit network
+uci -q set dhcp.lan.ignore='1'
+uci -q commit dhcp
+
+# 代理类默认全部不启用（面板里按需开）
+for s in openclash passwall ssr-plus nikki AdGuardHome adguardhome tailscale; do
+    if [ -x "/etc/init.d/$s" ]; then
+        "/etc/init.d/$s" disable >/dev/null 2>&1 || true
+        "/etc/init.d/$s" stop    >/dev/null 2>&1 || true
+    fi
+done
+
+uci -q set openclash.config.enable='0' 2>/dev/null && uci -q commit openclash 2>/dev/null
+uci -q set adguardhome.config.enabled='0' 2>/dev/null && uci -q commit adguardhome 2>/dev/null
+
+exit 0
