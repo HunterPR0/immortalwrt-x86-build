@@ -26,7 +26,6 @@ luci-i18n-homeproxy-zh-cn
 luci-i18n-passwall-zh-cn
 luci-i18n-lucky-zh-cn
 luci-i18n-easytier-zh-cn
-luci-i18n-ssr-plus-zh-cn
 luci-i18n-nikki-zh-cn
 luci-i18n-adguardhome-zh-cn
 luci-i18n-tailscale-community-zh-cn
@@ -79,7 +78,6 @@ luci-app-commands
 luci-app-openclash
 luci-app-passwall
 luci-app-homeproxy
-luci-app-ssr-plus
 luci-app-nikki
 nikki
 subconverter
