@@ -46,6 +46,10 @@ jobs:
           # 官方 subconverter 包会与它抢 /etc/subconverter 下的同名文件（opkg 报
           # check_data_file_clashes 并中止安装），所以 packages.list 里不装官方包。
           cp -r luci-app-subconverter "$GITHUB_WORKSPACE/openwrt/package/" || true
+          # aurora 主题：feeds 机制没把它识别成包，直接整仓 clone 进 package/
+          git clone --depth 1 https://github.com/eamonxg/luci-theme-aurora.git \
+            "$GITHUB_WORKSPACE/openwrt/package/luci-theme-aurora"
+          ls "$GITHUB_WORKSPACE/openwrt/package/luci-theme-aurora/Makefile"
 
       - name: Cache downloads
         uses: actions/cache@v4

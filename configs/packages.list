@@ -46,7 +46,7 @@ kmod-nft-nat
 kmod-tun
 kmod-inet-diag
 tcpdump
-mtr
+mtr-json
 curl
 bash
 htop
