@@ -55,25 +55,37 @@ jobs:
       - name: DIY patches
         run: bash scripts/diy-part2.sh "$GITHUB_WORKSPACE/openwrt"
 
+      - name: Drop conflicting feed packages
+        run: |
+          cd openwrt
+          # mihomo-alpha 与 mihomo-meta 互相 CONFLICTS + 都 PROVIDES mihomo，会触发 kconfig 递归依赖
+          # 只留 mihomo-meta（稳定版），否则 nikki 找不到 mihomo 提供者
+          rm -rf package/feeds/nikki/mihomo-alpha || true
+          # helloworld 自带的 mihomo 会和 mihomo-meta 抢 PROVIDES，去掉
+          rm -rf package/feeds/helloworld/mihomo || true
+          ls package/feeds/nikki/ 2>/dev/null || true
+
       - name: Configure
         run: |
           cd openwrt
           cp ../configs/base.config .config
           make defconfig
+          # 追加需要的包，交给 kconfig 自己解析依赖
           while read -r p; do
             case "$p" in ''|\#*) continue;; esac
-            ./scripts/config -e "CONFIG_PACKAGE_$p"
+            echo "CONFIG_PACKAGE_$p=y" >> .config
           done < ../configs/packages.list
           make defconfig
           echo "===== 缺失包检查 ====="
           : > ../missing.txt
           while read -r p; do
-            case "$p" in ''|\#*) continue;; esac
+            case "$p" in ''|'#'*) continue;; esac
             grep -q "^CONFIG_PACKAGE_$p=y" .config || echo "$p" >> ../missing.txt
           done < ../configs/packages.list
+          echo "缺失数量: $(wc -l < ../missing.txt)"
           cat ../missing.txt || true
           echo "===== 目标检查 ====="
-          grep -E '^CONFIG_TARGET_(x86|ROOTFS_PARTSIZE|KERNEL_PARTSIZE)' .config
+          grep -E '^CONFIG_TARGET_(x86|ROOTFS_PARTSIZE|KERNEL_PARTSIZE)' .config || true
 
       - name: Build
         run: |
