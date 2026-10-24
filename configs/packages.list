@@ -80,7 +80,6 @@ luci-app-passwall
 luci-app-homeproxy
 luci-app-nikki
 nikki
-subconverter
 luci-app-subconverter
 # ===== 组网 / 转发 =====
 luci-app-lucky

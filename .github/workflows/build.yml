@@ -42,15 +42,9 @@ jobs:
             https://github.com/kenzok8/small-package.git /tmp/smallpkg
           cd /tmp/smallpkg
           git sparse-checkout set luci-app-subconverter
-          # 该面板包会整目录安装 /etc/subconverter（规则库+二进制），与官方
-          # subconverter 包重名，opkg 报 check_data_file_clashes 直接中止。
-          # 只保留 LuCI 界面文件，二进制/规则/init 交给官方包。
-          sed -i \
-            -e '/\$(CP) -r \$(PKG_BUILD_DIR)\/root\/etc\/subconverter/d' \
-            -e '/chmod 0755 \$(1)\/etc\/subconverter\/subconverter/d' \
-            -e '/INSTALL_BIN.*root\/etc\/init.d\/subconverter/d' \
-            luci-app-subconverter/Makefile
-          grep -c 'etc/subconverter' luci-app-subconverter/Makefile || true
+          # 面板包自带静态 x86-64 二进制 + pref.ini + 规则库 + init 脚本，
+          # 官方 subconverter 包会与它抢 /etc/subconverter 下的同名文件（opkg 报
+          # check_data_file_clashes 并中止安装），所以 packages.list 里不装官方包。
           cp -r luci-app-subconverter "$GITHUB_WORKSPACE/openwrt/package/" || true
 
       - name: Cache downloads
