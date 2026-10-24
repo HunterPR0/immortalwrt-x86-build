@@ -86,6 +86,12 @@ jobs:
           done < ../configs/packages.list
           echo "缺失数量: $(wc -l < ../missing.txt)"
           cat ../missing.txt || true
+          echo "===== 互斥包检查 ====="
+          if grep -q "^CONFIG_PACKAGE_libustream-mbedtls20201210=y" .config; then
+            echo "FATAL: libustream-mbedtls 与 openssl 版会抢 /lib/libustream-ssl.so"
+            exit 1
+          fi
+          grep -E "^CONFIG_PACKAGE_(libustream|dnsmasq|luci-ssl)" .config || true
           echo "===== 目标检查 ====="
           grep -E '^CONFIG_TARGET_(x86|ROOTFS_PARTSIZE|KERNEL_PARTSIZE)' .config || true
 
