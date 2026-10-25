@@ -80,6 +80,8 @@ luci-app-homeproxy
 luci-app-nikki
 nikki
 luci-app-subconverter
+luci-app-passwall2
+luci-i18n-passwall2-zh-cn
 # ===== 组网 / 转发 =====
 luci-app-lucky
 lucky
@@ -89,3 +91,11 @@ tailscale
 luci-app-tailscale-community
 # ===== DNS =====
 adguardhome
+
+# ===== 游戏加速 =====
+luci-app-uugamebooster
+uugamebooster
+luci-i18n-uugamebooster-zh-cn
+# ===== QoS =====
+luci-app-nft-qos
+nft-qos
