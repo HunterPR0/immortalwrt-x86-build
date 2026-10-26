@@ -10,7 +10,6 @@ luci-i18n-firewall-zh-cn
 luci-i18n-argon-config-zh-cn
 luci-i18n-ttyd-zh-cn
 luci-i18n-upnp-zh-cn
-luci-i18n-sqm-zh-cn
 luci-i18n-mwan3-zh-cn
 luci-i18n-statistics-zh-cn
 luci-i18n-nlbwmon-zh-cn
@@ -60,7 +59,6 @@ luci-app-ddns
 ddns-scripts-aliyun
 ddns-scripts-cloudflare
 luci-app-upnp
-luci-app-sqm
 luci-app-mwan3
 luci-app-wol
 luci-app-banip
@@ -95,5 +93,3 @@ nftables
 ca-bundle
 kmod-ipt-nat
 # ===== QoS =====
-luci-app-nft-qos
-nft-qos
