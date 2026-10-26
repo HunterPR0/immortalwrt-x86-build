@@ -49,6 +49,13 @@ jobs:
           # aurora 主题：feeds 机制没把它识别成包，直接整仓 clone 进 package/
           git clone --depth 1 https://github.com/eamonxg/luci-theme-aurora.git \
             "$GITHUB_WORKSPACE/openwrt/package/luci-theme-aurora"
+          # ddnsto（内网穿透，备用远程入口）：只取两个包，避免 haiibo 大仓库拖慢 feeds
+          git clone --depth 1 --filter=blob:none --sparse \
+            https://github.com/haiibo/openwrt-packages.git /tmp/haiibo
+          cd /tmp/haiibo
+          git sparse-checkout set ddnsto luci-app-ddnsto
+          cp -r ddnsto luci-app-ddnsto "$GITHUB_WORKSPACE/openwrt/package/"
+          ls "$GITHUB_WORKSPACE/openwrt/package/ddnsto/Makefile"
           ls "$GITHUB_WORKSPACE/openwrt/package/luci-theme-aurora/Makefile"
 
       - name: Cache downloads

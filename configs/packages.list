@@ -18,7 +18,6 @@ luci-i18n-autoreboot-zh-cn
 luci-i18n-commands-zh-cn
 luci-i18n-banip-zh-cn
 luci-i18n-wol-zh-cn
-luci-i18n-ddns-zh-cn
 luci-i18n-https-dns-proxy-zh-cn
 luci-i18n-homeproxy-zh-cn
 luci-i18n-passwall-zh-cn
@@ -55,9 +54,6 @@ tar
 rsync
 openssh-sftp-server
 # ===== 网络 =====
-luci-app-ddns
-ddns-scripts-aliyun
-ddns-scripts-cloudflare
 luci-app-upnp
 luci-app-mwan3
 luci-app-wol
@@ -85,6 +81,8 @@ luci-app-easytier
 easytier
 tailscale
 luci-app-tailscale-community
+ddnsto
+luci-app-ddnsto
 # ===== DNS =====
 adguardhome
 # ===== UU 加速器运行依赖（面板与二进制随 files/ 打包）=====
