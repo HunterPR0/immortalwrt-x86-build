@@ -56,10 +56,6 @@ nikki
 luci-app-passwall2
 luci-i18n-passwall2-zh-cn
 # ===== 组网 / 转发 =====
-luci-app-lucky
-lucky
-luci-app-easytier
-easytier
 tailscale
 luci-app-tailscale-community
 ddnsto
