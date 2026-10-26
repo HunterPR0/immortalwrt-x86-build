@@ -9,21 +9,14 @@ luci-i18n-base-zh-cn
 luci-i18n-firewall-zh-cn
 luci-i18n-argon-config-zh-cn
 luci-i18n-ttyd-zh-cn
-luci-i18n-upnp-zh-cn
-luci-i18n-statistics-zh-cn
 luci-i18n-nlbwmon-zh-cn
-luci-i18n-watchcat-zh-cn
 luci-i18n-autoreboot-zh-cn
-luci-i18n-commands-zh-cn
-luci-i18n-banip-zh-cn
 luci-i18n-wol-zh-cn
-luci-i18n-https-dns-proxy-zh-cn
 luci-i18n-homeproxy-zh-cn
 luci-i18n-lucky-zh-cn
 luci-i18n-easytier-zh-cn
 luci-i18n-nikki-zh-cn
 luci-i18n-tailscale-community-zh-cn
-luci-i18n-subconverter-zh-cn
 # ===== 主题 =====
 luci-theme-argon
 luci-theme-bootstrap
@@ -52,21 +45,14 @@ tar
 rsync
 openssh-sftp-server
 # ===== 网络 =====
-luci-app-upnp
 luci-app-wol
-luci-app-banip
-luci-app-https-dns-proxy
 fail2ban
-luci-app-statistics
 luci-app-nlbwmon
-luci-app-watchcat
 luci-app-autoreboot
-luci-app-commands
 # ===== 代理 =====
 luci-app-homeproxy
 luci-app-nikki
 nikki
-luci-app-subconverter
 luci-app-passwall2
 luci-i18n-passwall2-zh-cn
 # ===== 组网 / 转发 =====
@@ -79,7 +65,6 @@ luci-app-tailscale-community
 ddnsto
 luci-app-ddnsto
 # ===== DNS =====
-adguardhome
 # ===== UU 加速器运行依赖（面板与二进制随 files/ 打包）=====
 libstdcpp6
 nftables
