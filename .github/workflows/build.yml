@@ -56,6 +56,11 @@ jobs:
           git sparse-checkout set ddnsto luci-app-ddnsto
           cp -r ddnsto luci-app-ddnsto "$GITHUB_WORKSPACE/openwrt/package/"
           ls "$GITHUB_WORKSPACE/openwrt/package/ddnsto/Makefile"
+          # MosDNS v5：本体 + 面板 + geo2txt（依赖），从 sbwml 仓库取 v5 分支
+          git clone --depth 1 -b v5 https://github.com/sbwml/luci-app-mosdns.git /tmp/mosdns-pkg
+          cp -r /tmp/mosdns-pkg/luci-app-mosdns /tmp/mosdns-pkg/mosdns /tmp/mosdns-pkg/geo2txt \
+            "$GITHUB_WORKSPACE/openwrt/package/"
+          ls "$GITHUB_WORKSPACE/openwrt/package/mosdns/Makefile"
           ls "$GITHUB_WORKSPACE/openwrt/package/luci-theme-aurora/Makefile"
 
       - name: Cache downloads

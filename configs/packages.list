@@ -91,3 +91,7 @@ nftables
 ca-bundle
 kmod-ipt-nat
 # ===== QoS =====
+# ===== DNS 分流 =====
+mosdns
+luci-app-mosdns
+luci-i18n-mosdns-zh-cn
