@@ -91,11 +91,11 @@ tailscale
 luci-app-tailscale-community
 # ===== DNS =====
 adguardhome
-
-# ===== 游戏加速 =====
-luci-app-uugamebooster
-uugamebooster
-luci-i18n-uugamebooster-zh-cn
+# ===== UU 加速器运行依赖（面板与二进制随 files/ 打包）=====
+libstdcpp6
+nftables
+ca-bundle
+kmod-ipt-nat
 # ===== QoS =====
 luci-app-nft-qos
 nft-qos
