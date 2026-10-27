@@ -1,0 +1,40 @@
+# 必须存在 —— 少了就是配置漂移
+# 代理核心
+xray-core
+sing-box
+mihomo-meta
+# 代理面板
+luci-app-homeproxy
+luci-app-passwall2
+luci-app-nikki
+nikki
+# 组网 / 转发
+tailscale
+luci-app-tailscale-community
+ddnsto
+luci-app-ddnsto
+# DNS
+mosdns
+luci-app-mosdns
+dnsmasq-full
+# 运维
+luci-app-ttyd
+luci-app-nlbwmon
+fail2ban
+luci-app-autoreboot
+luci-app-wol
+zram-swap
+# 主题（四套）
+luci-theme-argon
+luci-theme-aurora
+luci-theme-bootstrap
+luci-theme-material
+luci-app-argon-config
+# 界面 / 兼容
+luci-ssl-openssl
+luci-compat
+# 代理运行依赖
+kmod-nft-tproxy
+kmod-nft-socket
+kmod-nft-nat
+kmod-tun

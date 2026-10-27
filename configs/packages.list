@@ -61,8 +61,6 @@ ddnsto
 luci-app-ddnsto
 # ===== DNS =====
 # ===== UU 加速器运行依赖（面板与二进制随 files/ 打包）=====
-libstdcpp6
-nftables
 ca-bundle
 kmod-ipt-nat
 # ===== QoS =====

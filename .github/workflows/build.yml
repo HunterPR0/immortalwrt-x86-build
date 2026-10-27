@@ -94,14 +94,25 @@ jobs:
           done < ../configs/packages.list
           echo "缺失数量: $(wc -l < ../missing.txt)"
           cat ../missing.txt || true
-          echo "===== 关键包强制检查 ====="
-          for cp in xray-core sing-box mihomo-meta; do
-            if ! grep -q "^CONFIG_PACKAGE_$cp=y" .config; then
-              echo "FATAL: 关键包 $cp 未被选中（choice/select 静默失效）"
-              exit 1
-            fi
-          done
-          echo "关键包检查通过"
+          echo "===== 期望包核对（必须存在）====="
+          drift=0
+          while read -r p; do
+            case "$p" in ''|'#'*) continue;; esac
+            grep -q "^CONFIG_PACKAGE_$p=y" .config || { echo "  MISS  $p"; drift=1; }
+          done < ../configs/expect.lst
+
+          echo "===== 禁入包核对（必须不存在）====="
+          while read -r p; do
+            case "$p" in ''|'#'*) continue;; esac
+            grep -q "^CONFIG_PACKAGE_$p=y" .config && { echo "  LEAK  $p 仍在配置中"; drift=1; }
+            true
+          done < ../configs/forbid.lst
+
+          if [ "$drift" = 1 ]; then
+            echo "FATAL: 配置偏离预期（expect.lst / forbid.lst），终止编译"
+            exit 1
+          fi
+          echo "核对通过：期望包 $(grep -vcE '^\\s*(#|$)' ../configs/expect.lst) 项齐全，禁入包 $(grep -vcE '^\\s*(#|$)' ../configs/forbid.lst) 项为零"
 
           echo "===== 互斥包检查 ====="
           if grep -q "^CONFIG_PACKAGE_libustream-mbedtls20201210=y" .config; then
@@ -117,6 +128,27 @@ jobs:
           cd openwrt
           make -j$(nproc) V=s 2>&1 | tee build.log
           test ${PIPESTATUS[0]} -eq 0
+
+      - name: Verify image manifest
+        run: |
+          cd openwrt
+          mf=$(ls bin/targets/x86/64/*squashfs-combined.manifest 2>/dev/null | head -1)
+          [ -z "$mf" ] && mf=$(ls bin/targets/x86/64/*.manifest 2>/dev/null | head -1)
+          if [ -z "$mf" ]; then echo "FATAL: 找不到 manifest"; exit 1; fi
+          echo "manifest: $mf"
+          drift=0
+          echo "===== 镜像内容核对：期望包 ====="
+          while read -r p; do
+            case "$p" in ''|'#'*) continue;; esac
+            grep -q "^$p " "$mf" || { echo "  MISS  $p"; drift=1; }
+          done < ../configs/expect.lst
+          echo "===== 镜像内容核对：禁入包 ====="
+          while read -r p; do
+            case "$p" in ''|'#'*) continue;; esac
+            if grep -q "^$p " "$mf"; then echo "  LEAK  $p"; drift=1; fi
+          done < ../configs/forbid.lst
+          if [ "$drift" = 1 ]; then echo "FATAL: 镜像内容偏离预期"; exit 1; fi
+          echo "镜像核对通过，包总数 $(wc -l < "$mf")"
 
       - name: Collect
         if: always()

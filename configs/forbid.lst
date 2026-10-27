@@ -1,0 +1,25 @@
+# 必须不存在 —— 出现就是没删干净
+easytier
+luci-app-easytier
+lucky
+luci-app-lucky
+luci-app-smartdns
+luci-app-sqm
+luci-app-nft-qos
+nft-qos
+luci-app-ddns
+ddns-scripts-aliyun
+ddns-scripts-cloudflare
+luci-app-passwall
+luci-app-openclash
+luci-app-mwan3
+mwan3
+luci-app-upnp
+luci-app-watchcat
+luci-app-https-dns-proxy
+luci-app-subconverter
+luci-app-statistics
+luci-app-commands
+luci-app-banip
+adguardhome
+luci-app-adguardhome
