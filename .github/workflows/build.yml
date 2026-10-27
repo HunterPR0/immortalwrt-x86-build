@@ -94,6 +94,15 @@ jobs:
           done < ../configs/packages.list
           echo "缺失数量: $(wc -l < ../missing.txt)"
           cat ../missing.txt || true
+          echo "===== 关键包强制检查 ====="
+          for cp in xray-core sing-box mihomo-meta; do
+            if ! grep -q "^CONFIG_PACKAGE_$cp=y" .config; then
+              echo "FATAL: 关键包 $cp 未被选中（choice/select 静默失效）"
+              exit 1
+            fi
+          done
+          echo "关键包检查通过"
+
           echo "===== 互斥包检查 ====="
           if grep -q "^CONFIG_PACKAGE_libustream-mbedtls20201210=y" .config; then
             echo "FATAL: libustream-mbedtls 与 openssl 版会抢 /lib/libustream-ssl.so"
